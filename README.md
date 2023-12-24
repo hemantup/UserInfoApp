@@ -9,7 +9,7 @@ You can download the apk from the following link (https://drive.google.com/file/
 ## Screenshots
 
 ![Preview](./Screenshots/ss1.jpg)
-![Preview](./Screenshots/preview.mp4)
+![Preview](./Screenshots/preview.gif)
 
 ## Running the App Locally
 
