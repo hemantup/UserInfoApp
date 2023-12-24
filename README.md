@@ -1,79 +1,56 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# User Information App
 
-# Getting Started
+## Overview
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+The User Information App is a React Native mobile application designed to display user details fetched from a random-data API(https://random-data-api.com/api/users/random_user?size=80). It presents user information in a user-friendly interface and allows navigation through different user data screens.
 
-## Step 1: Start the Metro Server
+## Running the App Locally
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+To run the application locally, follow these steps:
 
-To start Metro, run the following command from the _root_ of your React Native project:
+> **Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
 
-```bash
-# using npm
-npm start
+### Prerequisites
 
-# OR using Yarn
-yarn start
-```
+- Node.js installed on your machine
+- Expo CLI or React Native CLI installed globally
+- Git (optional, for cloning the repository)
 
-## Step 2: Start your Application
+### Installation
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+1. Clone this repository to your local machine (if not downloaded).
 
-### For Android
+   ```bash
+   git clone <repository-url>
 
-```bash
-# using npm
-npm run android
+   ```
 
-# OR using Yarn
-yarn android
-```
+2. Navigate to the project directory
 
-### For iOS
+   ```bash
+   cd user-information-app
 
-```bash
-# using npm
-npm run ios
+   ```
 
-# OR using Yarn
-yarn ios
-```
+3. Install dependencies.
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+   ```bash
+   npm install
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+   ```
 
-## Step 3: Modifying your App
+4. Run "npm run start". Then, you will see instructions to run on a real device or a simulator.
 
-Now that you have successfully run the app, let's modify it.
+## Additional Notes
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+### Data Fetching
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+- The application fetches user data from the Random Data API(https://random-data-api.com/api/users/random_user?size=80).
+- Ensure a stable internet connection for seamless data retrieval.
 
-## Congratulations! :tada:
+### Navigation Buttons
 
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+- Use the "Previous" and "Next" buttons to navigate between different users' details.
+- The buttons are limited by the available data(i.e. 80 user) fetched from the API.
+- At the very first user if previous is pressed the index goes to the last user in the array.
+- Similarly is next is pressed at the 80th user the index resets to first user in the array.

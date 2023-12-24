@@ -12,6 +12,7 @@ import {
 
 import axios from 'axios';
 
+// Type for the userData from the random-data-API
 type UserData = {
   id: number;
   uid: string;
@@ -31,17 +32,19 @@ function App(): React.JSX.Element {
     fetchUserData();
   }, []);
 
+  // Fetch the data from the random-api
   const fetchUserData = async () => {
     try {
       const response = await axios.get<UserData[]>(
         'https://random-data-api.com/api/users/random_user?size=80',
-      );
-      setUserData(response.data);
+      ); // store the response
+      setUserData(response.data); // set the userData from the respose of API
     } catch (error) {
-      console.error('Error fetching user data:', error);
+      console.error('Error fetching user data:', error); // error handling if the response fails
     }
   };
 
+  // Displaying the user data to the screen
   const renderUserData = () => {
     if (!userData.length) return null;
 
@@ -74,19 +77,21 @@ function App(): React.JSX.Element {
     ));
   };
 
+  // Next User handling
   const handleNext = () => {
     if (currentIndex < userData.length - 1) {
       setCurrentIndex(currentIndex + 1);
     } else {
-      setCurrentIndex(0);
+      setCurrentIndex(0); // at the last index i.e. 80 set the index to 0
     }
   };
 
+  // Previous User handling
   const handlePrevious = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
     } else {
-      setCurrentIndex(userData.length - 1);
+      setCurrentIndex(userData.length - 1); // at the first index i.e. 1 set the index to 80
     }
   };
 
@@ -105,7 +110,8 @@ function App(): React.JSX.Element {
             {currentIndex + 1}/{userData.length}
           </Text>
         </View>
-        <View style={{alignItems: 'center'}}>
+        <View style={{marginTop: 20, alignItems: 'center'}}>
+          {/* Image is sourced from userData[currentIndex].avatar if the value is null then set a default profile image */}
           <Image
             source={{
               uri:
@@ -114,15 +120,17 @@ function App(): React.JSX.Element {
             }}
             resizeMode="contain"
             style={{
-              height: 125,
-              width: 125,
+              height: 100,
+              width: 100,
               borderRadius: 999,
               borderColor: '#000000',
-              borderWidth: 2,
+              borderWidth: 3,
             }}
           />
         </View>
+        {/* UserDataSection id, uid, firstName, lastName, email, password, userName */}
         <View style={styles.userDataSection}>{renderUserData()}</View>
+        {/* The next and previous buttons with methods to handle the working */}
         <View style={styles.buttonsContainer}>
           <Pressable style={styles.btn} onPress={handlePrevious}>
             <Text style={styles.text}>Previous</Text>
@@ -136,6 +144,7 @@ function App(): React.JSX.Element {
   );
 }
 
+// Style of the elements
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -145,7 +154,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 10,
     right: 10,
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    backgroundColor: '#003259',
     borderRadius: 10,
     paddingHorizontal: 10,
     paddingVertical: 5,
@@ -153,14 +162,6 @@ const styles = StyleSheet.create({
   counterText: {
     color: '#fff',
     fontSize: 16,
-  },
-  avatar: {
-    width: 100,
-    height: 100,
-    borderRadius: 63,
-    borderWidth: 2,
-    borderColor: 'white',
-    marginBottom: 10,
   },
   userDataSection: {
     padding: 10,
@@ -173,15 +174,14 @@ const styles = StyleSheet.create({
     fontFamily: 'Helvetica',
     color: 'grey',
     fontWeight: '600',
-    marginLeft: 20,
+    marginLeft: 10,
     marginTop: 10,
   },
   subjectText: {
     color: 'black',
     fontSize: 16,
     fontFamily: 'Helvetica',
-    marginLeft: 20,
-    marginTop: 5,
+    marginLeft: 10,
   },
   RectangleShapeView: {
     marginTop: 10,
@@ -189,32 +189,11 @@ const styles = StyleSheet.create({
     height: 65,
     backgroundColor: 'white',
     color: 'black',
-    borderRadius: 50,
+    borderRadius: 55,
     paddingLeft: 15,
-    borderColor: 'black',
-    borderWidth: 1,
+    borderColor: '#003259',
+    borderWidth: 2,
     elevation: 3,
-  },
-  label: {
-    flex: 1,
-    fontSize: 16,
-    marginRight: 10,
-  },
-  input: {
-    flex: 1,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-    padding: 8,
-    fontSize: 16,
-  },
-  passwordInputContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-    fontSize: 16,
   },
   bottomSection: {
     flexDirection: 'row',
@@ -232,8 +211,8 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   btn: {
-    backgroundColor: '#3B525F',
-    borderRadius: 10,
+    backgroundColor: '#003259',
+    borderRadius: 100,
     width: 100,
     height: 50,
     alignItems: 'center',
