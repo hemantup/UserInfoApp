@@ -115,7 +115,7 @@ function App(): React.JSX.Element {
           <Image
             source={{
               uri:
-                userData[currentIndex].avatar ||
+                userData[currentIndex]?.avatar.split('?')[0] ||
                 'https://w7.pngwing.com/pngs/981/645/png-transparent-default-profile-united-states-computer-icons-desktop-free-high-quality-person-icon-miscellaneous-silhouette-symbol-thumbnail.png',
             }}
             resizeMode="contain"
