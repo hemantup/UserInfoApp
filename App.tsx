@@ -100,6 +100,11 @@ function App(): React.JSX.Element {
         style={{
           backgroundColor: '#5ac7fa',
         }}>
+        <View style={styles.counterContainer}>
+          <Text style={styles.counterText}>
+            {currentIndex + 1}/{userData.length}
+          </Text>
+        </View>
         <View style={{alignItems: 'center'}}>
           <Image
             source={{
@@ -135,6 +140,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#808080',
+  },
+  counterContainer: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    borderRadius: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+  },
+  counterText: {
+    color: '#fff',
+    fontSize: 16,
   },
   avatar: {
     width: 100,
