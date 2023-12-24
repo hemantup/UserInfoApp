@@ -6,6 +6,11 @@ The User Information App is a React Native mobile application designed to displa
 
 You can download the apk from the following link (https://drive.google.com/file/d/1W42E1paKC7YZ6FAetDbo5mCR1Ky2IqsH/view?usp=sharing)
 
+## Screenshots
+
+![Preview](./Screenshots/ss1.jpg)
+![Preview](./Screenshots/preview.mp4)
+
 ## Running the App Locally
 
 To run the application locally, follow these steps:
