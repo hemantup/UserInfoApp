@@ -3,13 +3,11 @@ import React, {useState, useEffect} from 'react';
 import {
   SafeAreaView,
   ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
   Image,
-  TextInput,
+  Pressable,
 } from 'react-native';
 
 import axios from 'axios';
@@ -20,9 +18,9 @@ type UserData = {
   password: string;
   first_name: string;
   last_name: string;
-  Username: string;
+  username: string;
   email: string;
-  Avatar: string;
+  avatar: string;
 };
 
 function App(): React.JSX.Element {
@@ -51,7 +49,7 @@ function App(): React.JSX.Element {
     const displayKeys: Array<keyof UserData> = [
       'uid',
       'id',
-      'Username',
+      'username',
       'first_name',
       'last_name',
       'email',
@@ -60,25 +58,18 @@ function App(): React.JSX.Element {
     const displayLabels: {[key in keyof UserData]: string} = {
       uid: 'UID',
       id: 'ID',
-      Username: 'Username',
+      username: 'Username',
       first_name: 'First Name',
       last_name: 'Last Name',
       email: 'Email',
       password: 'Password',
-      Avatar: 'Avatar',
+      avatar: 'Avatar',
     };
-    const avatarUrl = user.Avatar
-      ? user.Avatar.split('?')[0]
-      : 'https://w7.pngwing.com/pngs/981/645/png-transparent-default-profile-united-states-computer-icons-desktop-free-high-quality-person-icon-miscellaneous-silhouette-symbol-thumbnail.png';
 
     return displayKeys.map(key => (
-      <View key={key} style={styles.inputRow}>
-        <Text style={styles.label}>{displayLabels[key]}:</Text>
-        <TextInput
-          style={styles.input}
-          value={String(user[key])}
-          editable={false}
-        />
+      <View key={key} style={styles.RectangleShapeView}>
+        <Text style={styles.headText}>{displayLabels[key]}:</Text>
+        <Text style={styles.subjectText}>{String(user[key])}</Text>
       </View>
     ));
   };
@@ -86,44 +77,54 @@ function App(): React.JSX.Element {
   const handleNext = () => {
     if (currentIndex < userData.length - 1) {
       setCurrentIndex(currentIndex + 1);
+    } else {
+      setCurrentIndex(0);
     }
   };
 
   const handlePrevious = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
+    } else {
+      setCurrentIndex(userData.length - 1);
     }
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <StatusBar />
-        <View style={styles.formContainer}>
-          <View style={styles.topSection}>
-            {userData.length > 0 && (
-              <Image
-                source={{
-                  uri:
-                    userData[currentIndex].Avatar?.split('?')[0] ||
-                    'https://w7.pngwing.com/pngs/981/645/png-transparent-default-profile-united-states-computer-icons-desktop-free-high-quality-person-icon-miscellaneous-silhouette-symbol-thumbnail.png',
-                }}
-                style={styles.avatar}
-              />
-            )}
-          </View>
-          <View style={styles.userDataSection}>{renderUserData()}</View>
-          <View style={styles.bottomSection}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={handlePrevious}
-              disabled={currentIndex === 0}>
-              <Text style={styles.buttonText}>Previous</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={handleNext}>
-              <Text style={styles.buttonText}>Next</Text>
-            </TouchableOpacity>
-          </View>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: '#ffffff',
+      }}>
+      <ScrollView
+        style={{
+          backgroundColor: '#5ac7fa',
+        }}>
+        <View style={{alignItems: 'center'}}>
+          <Image
+            source={{
+              uri:
+                userData[currentIndex].avatar ||
+                'https://w7.pngwing.com/pngs/981/645/png-transparent-default-profile-united-states-computer-icons-desktop-free-high-quality-person-icon-miscellaneous-silhouette-symbol-thumbnail.png',
+            }}
+            resizeMode="contain"
+            style={{
+              height: 125,
+              width: 125,
+              borderRadius: 999,
+              borderColor: '#000000',
+              borderWidth: 2,
+            }}
+          />
+        </View>
+        <View style={styles.userDataSection}>{renderUserData()}</View>
+        <View style={styles.buttonsContainer}>
+          <Pressable style={styles.btn} onPress={handlePrevious}>
+            <Text style={styles.text}>Previous</Text>
+          </Pressable>
+          <Pressable style={styles.btn} onPress={handleNext}>
+            <Text style={styles.text}>Next</Text>
+          </Pressable>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -133,33 +134,48 @@ function App(): React.JSX.Element {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-  },
-  formContainer: {
-    flex: 1,
-    padding: 20,
-  },
-  topSection: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 20,
+    backgroundColor: '#808080',
   },
   avatar: {
     width: 100,
     height: 100,
-    borderRadius: 50,
+    borderRadius: 63,
+    borderWidth: 2,
+    borderColor: 'white',
+    marginBottom: 10,
   },
   userDataSection: {
-    marginTop: 20,
+    padding: 10,
+    marginTop: 5,
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
   },
-  inputRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10,
+  headText: {
+    fontFamily: 'Helvetica',
+    color: 'grey',
+    fontWeight: '600',
+    marginLeft: 20,
+    marginTop: 10,
+  },
+  subjectText: {
+    color: 'black',
+    fontSize: 16,
+    fontFamily: 'Helvetica',
+    marginLeft: 20,
+    marginTop: 5,
+  },
+  RectangleShapeView: {
+    marginTop: 10,
     width: '100%',
+    height: 65,
+    backgroundColor: 'white',
+    color: 'black',
+    borderRadius: 50,
+    paddingLeft: 15,
+    borderColor: 'black',
+    borderWidth: 1,
+    elevation: 3,
   },
   label: {
     flex: 1,
@@ -167,11 +183,19 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   input: {
-    flex: 2,
+    flex: 1,
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 5,
-    padding: 10,
+    padding: 8,
+    fontSize: 16,
+  },
+  passwordInputContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
     fontSize: 16,
   },
   bottomSection: {
@@ -179,15 +203,24 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: 20,
   },
-  button: {
-    backgroundColor: '#007bff',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
+  buttonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    marginTop: 20,
+    marginBottom: 10,
   },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
+  text: {
+    color: 'white',
+    margin: 10,
+  },
+  btn: {
+    backgroundColor: '#3B525F',
+    borderRadius: 10,
+    width: 100,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 3,
   },
 });
 
